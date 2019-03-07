@@ -18,8 +18,11 @@
 platform :ios do
   desc "Push a new beta build to TestFlight"
   lane :beta do
-  get_certificates           # invokes cert
-  get_provisioning_profile   # invokes sigh
+    get_certificates           # invokes cert
+    get_provisioning_profile   # invokes sigh
+    ENV["FASTLANE_DONT_STORE_PASSWORD"] = "1"
+    ENV["FASTLANE_USER"] = "apps@quikr.com"
+    ENV["FASTLANE_PASSWORD"] = "quikrApp@13122017"
     build_app(scheme: "StretchyHeaderProject")
     upload_to_testflight
   end
