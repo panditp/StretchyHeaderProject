@@ -15,13 +15,17 @@
 
 
 
+default_platform(:ios)
 platform :ios do
-  desc "Push a new beta build to TestFlight"
-  lane :beta do
-    ENV["FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD"]= "hsfu-dzgv-lffv-haud"
-    get_certificates           # invokes cert
-    get_provisioning_profile   # invokes sigh
-    build_app(scheme: "StretchyHeaderProject")
-    upload_to_testflight
-  end
+ desc "Description of what the lane does"
+ lane :generate_ipa_develop do
+   build_ios_app(
+     configuration: "Debug",
+     scheme: "Test",
+     clean: true,
+     export_method: 'development',
+     output_directory: "~/Desktop/StretchyHeaderProject_Release", # Destination directory. Defaults to current directory.
+     output_name: "fastlane_jenkins.ipa",
+   )
+ end
 end
